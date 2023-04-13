@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
 import "./App.css";
+import Home from "./Home";
 import { generateProducts } from "./useDeferredValue-hook/generateProducts";
 import Search from "./useDeferredValue-hook/Search";
 import Form from "./useId-hook/bad-way/Form";
@@ -12,39 +13,46 @@ import NewList from "./useTransition-hook/correct-way/NewList";
 
 function App() {
   return (
-    <div className="App">
-      {/* ----Uncomment each one to see the example-------- */}
-      {/* useId Example */}
-      {/* <h1>Form1</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route path="badForm" element={<BadForm />} />
+          <Route path="goodFormWithUseId" element={<GoodForm />} />
+          <Route path="badTransition" element={<List />} />
+          <Route path="goodTransition" element={<NewList />} />
+          <Route
+            path="useDeferredValue"
+            element={<Search list={generateProducts()} />}
+          />
+          <Route path="useSyncExternalStore1" element={<Subscriber />} />
+          <Route path="useSyncExternalStore2" element={<WidthCalc />} />
+          <Route path="useInsertionEffect" element={<StyleComponent />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function BadForm() {
+  return (
+    <div>
+      <h1>Form1</h1>
       <Form />
       <hr />
       <h1>Form2</h1>
       <Form />
+    </div>
+  );
+}
+
+function GoodForm() {
+  return (
+    <div>
       <h1>Form1</h1>
       <NewForm />
       <hr />
       <h1>Form2</h1>
-      <NewForm /> */}
-      {/* /////////////////////////// */}
-
-      {/* useTransition Example */}
-      {/* <List /> */}
-      {/* <NewList /> */}
-      {/* /////////////////////////// */}
-
-      {/* useDeferredValue Example */}
-      {/* <Search list={generateProducts()} /> */}
-      {/* /////////////////////////// */}
-
-      {/* useSyncExternalStore-hook Example */}
-      {/* <WidthCalc /> */}
-      {/* <Subscriber /> */}
-      {/* /////////////////////////// */}
-
-      {/* useInsertionEffect-hook Example */}
-
-      {/* /////////////////////////// */}
-      <StyleComponent />
+      <NewForm />
     </div>
   );
 }
